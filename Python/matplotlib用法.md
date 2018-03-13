@@ -1,6 +1,6 @@
 ## Matplotlib用法
 
-#### pyplot
+### plot
 
 线型图，示例代码如下：
 
@@ -196,4 +196,96 @@ plt.show()
 | 8           | lower center |
 | 9           | upper center |
 | 10          | center       |
+
+### bar
+
+**最基础的柱状图**
+`pyplot.bar()`柱状图。同样接受两个*float*类型的数组作为`x`轴，`y`轴。示例如下：
+
+```python
+from matplotlib import pyplot as plt
+# 饮品与销售量柱状图
+drinks = ["cappuccino", "latte", "chai", "americano", "mocha", "espresso"]
+sales =  [91, 76, 56, 66, 52, 27]
+# x轴暂时展示序号
+plt.bar(range(len(drinks)), sales)
+plt.show()
+```
+
+柱状图同样也可以使用`ax = plt.subplot()`获取坐标轴，后续同样使用`set_xticks`、`set_xticklabels`等方法设置坐标轴的名称。示例代码如下：
+```python
+from matplotlib import pyplot as plt
+
+drinks = ["cappuccino", "latte", "chai", "americano", "mocha", "espresso"]
+sales =  [91, 76, 56, 66, 52, 27]
+ax = plt.subplot()
+ax.set_xticks(range(len(drinks)))
+ax.set_xticklabels(drinks)
+plt.bar(range(len(drinks)), sales)
+plt.show()
+```
+**并列对比的柱状图**
+同一柱状图中也能有多个数据集来对比不同，此时与线型图不同的位置是，两个对比的数据集取的X轴不能相同，否则柱状图就会相互重叠，相互覆盖。示例如下：
+```python
+from matplotlib import pyplot as plt
+
+drinks = ["cappuccino", "latte", "chai", "americano", "mocha", "espresso"]
+sales1 =  [91, 76, 56, 66, 52, 27]
+sales2 = [65, 82, 36, 68, 38, 40]
+
+#Paste the x_values code here
+n = 1  # This is our first dataset (out of 2)
+t = 2 # Number of datasets
+d = 6 # Number of sets of bars
+w = 2/3 # Width of each bar
+x_values1 = [t*element + w*n for element in range(d)]
+store1_x = x_values1
+
+n = 2 # This is our first dataset (out of 2)
+t = 2 # Number of datasets
+d = 6 # Number of sets of bars
+w = 2/3 # Width of each bar
+x_values2 = [t*element + w*n for element in range(d)]
+store2_x = x_values2
+
+plt.bar(store1_x, sales1)
+plt.bar(store2_x, sales2)
+plt.show()
+```
+
+**堆叠柱状图**
+
+一个图在另一个图上面堆叠，示例如下：
+
+```python
+from matplotlib import pyplot as plt
+
+drinks = ["cappuccino", "latte", "chai", "americano", "mocha", "espresso"]
+sales1 =  [91, 76, 56, 66, 52, 27]
+sales2 = [65, 82, 36, 68, 38, 40]
+
+ax_x = range(len(drinks))
+
+plt.bar(ax_x, sales1)
+plt.bar(ax_x, sales2, bottom=sales1)
+plt.legend(["Location 1", "Location 2"])
+plt.show()
+
+```
+
+**误差图**
+
+柱状图数据有时候会有一些误差，此时可以使用指定参数`yerr`来指定误差范围，指定`yerr`为一个数字时，则每个柱误差都是这个数。指定为一个`list`时，每一个柱对应一个误差。设置`capsize`参数可以让误差看得更明显。
+
+```python
+from matplotlib import pyplot as plt
+
+drinks = ["cappuccino", "latte", "chai", "americano", "mocha", "espresso"]
+ounces_of_milk = [6, 9, 4, 0, 9, 0]
+error = [0.6, 0.9, 0.4, 0, 0.9, 0]
+
+# Plot the bar graph here
+plt.bar(range(len(drinks)), ounces_of_milk, yerr=error, capsize=10)
+plt.show()
+```
 
