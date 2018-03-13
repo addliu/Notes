@@ -47,7 +47,7 @@ plt.plot(costs, time, color='#82edc9', marker='s')
 plt.show()
 ```
 
-调用`pyplot.axis([x_from, x-_to, y_from, y_to])`可以手动定义坐标轴的范围。示例代码如下：
+调用`pyplot.axis([x_from, x_to, y_from, y_to])`可以手动定义坐标轴的范围。示例代码如下：
 
 ```python
 from matplotlib import pyplot as plt
