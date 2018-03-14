@@ -289,3 +289,63 @@ plt.bar(range(len(drinks)), ounces_of_milk, yerr=error, capsize=10)
 plt.show()
 ```
 
+### Pie饼状图
+
+`pyplot.pie()`函数可以输出饼状图。饼状图只需要一个接收一个`list`参数,有时候饼状图不是圆形的，可以设置调用函数`pyplot.axis('equal')`将图形设置为圆形，示例代码如下：
+
+```python
+from matplotlib import pyplot as plt
+payment_method_names = ["Card Swipe", "Cash", "Apple Pay", "Other"]
+payment_method_freqs = [270, 77, 32, 11]
+#make your pie chart here
+plt.pie(payment_method_freqs)
+plt.axis('equal')
+plt.show()
+```
+
+同样，饼状图也能调用`legend`方法来展示图例。通过指定`pie`函数的`autopct`参数可以自动计算各数据占的百分比，示例如下：
+
+```python
+from matplotlib import pyplot as plt
+
+payment_method_names = ["Card Swipe", "Cash", "Apple Pay", "Other"]
+payment_method_freqs = [270, 77, 32, 11]
+
+plt.pie(payment_method_freqs, autopct='%0.1f%%')
+plt.axis('equal')
+plt.legend(payment_method_names)
+plt.show()
+```
+
+### hist直方图
+
+> Sometimes we want to get a feel for a large dataset with many samples beyond knowing just the basic metrics of mean, median, or standard deviation. To get more of an intuitive sense for a dataset, we can use a histogram to display all the values.
+
+示例代码如下：
+
+```python
+from matplotlib import pyplot as plt
+from script import sales_times
+
+#create the histogram here
+plt.hist(sales_times, bins=20)
+plt.show()
+```
+
+1. 直方图可以通过设置`alpha`参数来设置方格的透明度
+2. 可以通过设置参数`histtype='step'`来展示只有边框的直方图
+3. 有时候两个数据集的样本大小不一致，直接输出比较起来不方便，可以通过设置参数`normed=True`来设置所有方格加起来为1单位。这样就能只管的看出差距了。
+
+示例代码如下：
+
+```python
+from matplotlib import pyplot as plt
+from script import sales_times1
+from script import sales_times2
+
+plt.hist(sales_times1, bins=20, alpha=0.4, normed=True)
+plt.hist(sales_times2, bins=20, alpha=0.4, normed=True)
+#plot your other histogram here
+plt.show()
+```
+
