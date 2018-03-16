@@ -289,6 +289,24 @@ plt.bar(range(len(drinks)), ounces_of_milk, yerr=error, capsize=10)
 plt.show()
 ```
 
+除了柱状图之外，也有两条线之间的误差图。一般需要三个参数：`X`轴、`Y`轴上线`Y`轴下线（默认为0，也就是`X`轴），这样能绘制`Y`轴之上误差图。示例代码如下：
+```python
+from matplotlib import pyplot as plt
+
+x = [i for i in range(10)]
+y = [75, 83, 87, 84, 90, 89, 72, 76, 81, 88]
+# 如果数据误差在0.1以内，则上下线分别为
+y_upper = [y1*1.1 for y1 in y]
+y_lower = [y2*0.9 for y2 in y]
+# 设置figure大小
+plt.figure(figsize=(10, 8))
+# 绘制出第一条线型图
+plt.plot(x, y)
+# 绘制出误差图
+plt.fill_between(x, y_upper, y_lower, alpha=0.2)
+plt.show()
+```
+
 ### Pie饼状图
 
 `pyplot.pie()`函数可以输出饼状图。饼状图只需要一个接收一个`list`参数,有时候饼状图不是圆形的，可以设置调用函数`pyplot.axis('equal')`将图形设置为圆形，示例代码如下：
@@ -349,3 +367,18 @@ plt.hist(sales_times2, bins=20, alpha=0.4, normed=True)
 plt.show()
 ```
 
+
+
+> 一些常见函数的API
+>
+> | 函数名称              | 常用参数  | 函数作用 |
+> | --------------------- | -------- | -------- |
+> | `pyplot.plot`         | `X`、`Y`;`color='red'`;`linestyle='s'` | 线型图   |
+> | `pyplot.bar`          | `X`、`Y`;`yerr=yerr_list`;`capsize=10`;`bottom=y_bottom` | 柱状图   |
+> | `pyplot.pie`          | `X`;`label=label_list`;`autopct='%.1f%%'` | 饼状图   |
+> | `pyploy.hist`         |`X`;`histtype='step'`;`normed=True`;    | 直方图   |
+> | `pyplot.fill_between` | `X`、`Y1`、`Y2`; | 误差图   |
+> | `pyplot.figure`       | `figsize=(width, heigth)` | 图       |
+> | `pyplot.axis`         | `[x1, x2, y1, y2]` | 接收一个参数来指定坐标轴的范围 |
+>
+> 
